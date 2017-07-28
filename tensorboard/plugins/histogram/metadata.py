@@ -31,6 +31,7 @@ HistogramMetadata = collections.namedtuple('HistogramMetadata', ())
 
 
 def create_summary_metadata(display_name, description):
+  """Create a `tf.SummaryMetadata` proto for histogram plugin data."""
   content = HistogramMetadata()
   metadata = tf.SummaryMetadata(display_name=display_name,
                                 summary_description=description)
@@ -40,4 +41,13 @@ def create_summary_metadata(display_name, description):
 
 
 def parse_summary_metadata(content):
+  """Parse summary metadata to a Python object.
+
+  Arguments:
+    content: the `content` field of a `SummaryMetadata` proto
+      corresponding to the histogram plugin
+
+  Returns:
+    an `HistogramMetadata` instance
+  """
   return HistogramMetadata(**json.loads(content))
